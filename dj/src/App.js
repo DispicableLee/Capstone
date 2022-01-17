@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
 
+import './App.css';
+import { Routes, Route, Link, useParams, Outlet } from "react-router-dom";
+import AudioPlayer from './Components/AudioPlayer';
+import FileUpload from './Components/FileUpload';
+
+// require/use Express
+const express = require("express")
+const app = express();
+// set up body parser
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+          <h1>LemonCord</h1>
       </header>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/AudioPlayer">AudioPlayer</Link>
+        </li>
+        <li>
+          <Link to="/FileUpload">FileUpload</Link>
+        </li>
+      </ul>
+      <Routes>
+          <Route path="/" element={<home />}/>
+          <Route path="/AudioPlayer" element={<AudioPlayer/>}/>
+          <Route path="/FileUpload" element={<FileUpload/>}/>
+      </Routes>
     </div>
   );
 }
