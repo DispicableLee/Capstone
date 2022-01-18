@@ -1,0 +1,15 @@
+{
+  "name": "djbackend",
+  "version": "1.0.0",
+  "description": "blah",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "capstonebackEnd"
+  },
+  "author": "DispicableLee",
+  "license": "ISC"
+}
