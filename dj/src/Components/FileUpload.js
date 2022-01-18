@@ -16,7 +16,7 @@ export default function FileUpload(props) {
       const response = axios({
         //set as POST method
         method: "post",
-
+        
         url: "",
         data: formData
       });
