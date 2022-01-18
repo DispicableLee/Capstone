@@ -1,14 +1,37 @@
+//require express then the file uploader
 const express = require("express");
 const expressFileUpload = require("express-fileupload");
+//require cors
+const cors = require("cors");
+//require the file system
 const fs = require("fs");
-
+const FileRouter = require("./FileRouter");
+const FileService = require("./FileService");
+//activate the application with express
 const app = express();
+//use the file uploader in the application
 app.use(expressFileUpload());
-
+//use cors in the application
+app.use(cors());
+//set the port that the localhost will be using
 const port = 3000;
 
 let cache = {};
+//set up the upload directory, where the files will be sent
 const uploadDirectory = __dirname + "/djbackEnd/Uploadedfiles";
+//require the FileService
+const FileService = require("./FileService");
+//Require the FileRouter
+const FileRouter = require("./FileRouter");
+//initiaize a new FileService and pass in the uploadDirectory as a parameter
+const FileService = new FileService(uploadDirectory);
+//require the FileRouter that the FileService will be used in
+const FileRouter = new FileRouter;
+
+
+
+
+
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");

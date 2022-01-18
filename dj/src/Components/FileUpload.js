@@ -13,11 +13,10 @@ export default function FileUpload(props) {
     formData.append("selectedFile", selectedFile);
     //use axios to handle the file
     try {
-      const response = axios({
+      const response = await axios({
         //set as POST method
         method: "post",
-        
-        url: "",
+        url: "http://localhost:3000",
         data: formData
       });
     } catch (error) {
@@ -42,3 +41,5 @@ export default function FileUpload(props) {
   //need to select file from folder
   //need to export file to AudioPlayer
 }
+export default formData;
+
