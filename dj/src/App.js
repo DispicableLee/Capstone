@@ -3,20 +3,19 @@ import './App.css';
 import { Routes, Route, Link, useParams, Outlet } from "react-router-dom";
 import AudioPlayer from './Components/AudioPlayer';
 import FileUpload from './Components/FileUpload';
-
+import Fld from './Components/fld';
 // require/use Express
-const express = require("express")
-const app = express();
 // set up body parser
-function App() {
+export default function App() {
   return (
     <div className="App">
       <header className="App-header">
           <h1>LemonCord</h1>
       </header>
+      <Fld />
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">Hoe</Link>
         </li>
         <li>
           <Link to="/AudioPlayer">AudioPlayer</Link>
@@ -26,12 +25,9 @@ function App() {
         </li>
       </ul>
       <Routes>
-          <Route path="/" element={<home />}/>
           <Route path="/AudioPlayer" element={<AudioPlayer/>}/>
           <Route path="/FileUpload" element={<FileUpload/>}/>
       </Routes>
     </div>
   );
 }
-
-export default App;

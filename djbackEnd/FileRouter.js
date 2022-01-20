@@ -33,7 +33,10 @@ class FileRouter{
     }
     //this method deletes a song
     delete(req, res){
-
+        return this.fileService
+        .remove(index)
+        .then(()=>{this.fileService.list()})
+        .catch(err)
     }
 }
 
