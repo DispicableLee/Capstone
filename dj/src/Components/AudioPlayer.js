@@ -4,17 +4,17 @@ export default function AudioPlayer(props) {
     //need to implement
 
     return (
-      <div class="music-container">
+      <div className="music-container">
         {/* contains audio player */}
-        <div class="music-info">
+        <div className="music-info">
           {/*contains music information*/}
           <h4 id="title"> {/*name of song goes here*/}hi </h4>
-          <div class="progress-container">
-            <div class="progress"></div>
+          <div className="progress-container">
+            <div className="progress"></div>
           </div>
         </div>
         
-        <div class="img-cntnr">
+        <div className="img-cntnr">
           image container
           <img />
         </div>

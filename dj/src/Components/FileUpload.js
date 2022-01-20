@@ -1,15 +1,15 @@
-import './styles/fu.css'
 import { useState } from "react";
 import axios from "axios";
+//================================================================================================
 export default function FileUpload(props) {
   //set the initial state of the file
-  const { selectedFile, setSelectedFile } = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   //handle the submitted form once subimtted
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     //prevent the page from reloading once the form is submitted
     event.preventDefault();
     //create new formData everytime a file is submitted
-    const formData = new formData();
+    const formData = new FormData();
     //insert the file into the formData variable
     formData.append("selectedFile", selectedFile);
     //use axios to handle the file
@@ -17,10 +17,10 @@ export default function FileUpload(props) {
       const response = await axios({
         //set as POST method
         method: "post",
-        //QUESTION: HOW THE FUCK DO I SEND THIS TO THE POST REQUEST, GIVEN THAT THE PORT KEEPS CHANGING?!?!
-        url: "http://localhost:3000",
+        url: "http://localhost:8080",
         data: formData
       });
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -28,6 +28,7 @@ export default function FileUpload(props) {
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
   };
+  //==================================================================================================
 
   //need to create buttons to activate the file uploader
   //initialize a form to upload files in

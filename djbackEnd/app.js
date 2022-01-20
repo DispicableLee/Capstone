@@ -5,8 +5,6 @@ const expressFileUpload = require("express-fileupload");
 const cors = require("cors");
 //require the file system
 const fs = require("fs");
-const FileRouter = require("./FileRouter");
-const FileService = require("./FileService");
 //activate the application with express
 const app = express();
 //use the file uploader in the application
@@ -14,19 +12,19 @@ app.use(expressFileUpload());
 //use cors in the application
 app.use(cors());
 //set the port that the localhost will be using
-const port = 3000;
+const port = 8080;
 
 let cache = {};
 //set up the upload directory, where the files will be sent
-const uploadDirectory = __dirname + "/djbackEnd/Uploadedfiles";
+const uploadDirectory = __dirname + "/Uploadedfiles";
 //require the FileService
 const FileService = require("./FileService");
 //Require the FileRouter
 const FileRouter = require("./FileRouter");
 //initiaize a new FileService and pass in the uploadDirectory as a parameter
-const FileService = new FileService(uploadDirectory);
+const fileService = new FileService(uploadDirectory);
 //require the FileRouter that the FileService will be used in
-const FileRouter = new FileRouter;
+const fileRouter = new FileRouter;
 
 
 
@@ -38,39 +36,25 @@ app.get("/", (req, res) => {
 });
 //---make a Promise
 function read(name) {
-  return fs.readFileSync(uploadDirectory + "/" + name);
+  return fs.readFileSync(uploadDirectory + "/" + name,);
 }
 //---make a Promise
 function write(name, data) {
   fs.writeFileSync(uploadDirectory + "/" + name, data);
 } 
-
-app.post("/form", (req, res) => {
-  if (req.files) {
-    console.log(req.files.file);
-    const song = req.files.file;
-
-    // fs.writeFileSync(uploadDirectory + "/" + file.name, file.data);
-    write(song.name, song.data);
-    // cache[file.name] = fs.readFileSync(uploadDirectory + "/" + file.name);
-    cache[song.name] = read(song.name);
-    console.log("Cache", cache);
-    res.send(
-      `To download, go to: http:localhost:${port}/Uploadedfiles/${song.name}`
-    );
-  }
-});
-
-app.get("/Uploadedfiles/:filename", (req, res) => {
-  const params = req.params.filename;
-  if (cache[params]) {
-    res.send(cache[params]);
-  } else {
-    if (fs.existsSync(uploadDirectory + "/" + params)) {
-      cache[params] = read(params);
-      res.send(cache[params]);
-    }
-  }
+//inserts a file into uploadDirectory
+app.post("/",(req, res)=>{
+  console.log(req);
+  write(req.files.selectedFile.name, req.files.selectedFile.data)
+  res.send("hi");
+})
+//GET request that retrives a file from the directory and send it back to the front end
+app.get("/Uploadedfiles/:name", (req, res) => {
+  console.log("GET method: Uploadedfiles/:name")
+  const params = req.params.name;
+  let red = read(params);
+  console.log("reading from folder");
+  res.send(red);
 });
 
 app.listen(port, () => {
