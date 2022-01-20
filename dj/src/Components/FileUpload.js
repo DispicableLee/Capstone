@@ -1,3 +1,4 @@
+import './styles/fu.css'
 import { useState } from "react";
 import axios from "axios";
 export default function FileUpload(props) {
@@ -16,6 +17,7 @@ export default function FileUpload(props) {
       const response = await axios({
         //set as POST method
         method: "post",
+        //QUESTION: HOW THE FUCK DO I SEND THIS TO THE POST REQUEST, GIVEN THAT THE PORT KEEPS CHANGING?!?!
         url: "http://localhost:3000",
         data: formData
       });
@@ -32,8 +34,8 @@ export default function FileUpload(props) {
   //require express and express-file upload
   return (
     <form onSubmit={handleSubmit}>
-      <label></label>
       <input type="file" name="upload" id="audio" onChange={handleFileSelect} />
+      <input type="submit" name="submit"/>
     </form>
   );
   //need to read file and store it in a folder
@@ -41,5 +43,5 @@ export default function FileUpload(props) {
   //need to select file from folder
   //need to export file to AudioPlayer
 }
-export default formData;
+
 
