@@ -1,13 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-import FileSearch from "./FileSearch";
 //================================================================================================
-export default function FileUpload(props) {
-  //set the initial state of the file
+export default function FileDelete(props) {
   const [selectedFile, setSelectedFile] = useState(null);
   //handle the submitted form once subimtted
-  const handleSubmit = async (event) => {
-    //prevent the page from reloading once the form is submitted
+  const handleDelete = async (event) => {
     event.preventDefault();
     //create new formData everytime a file is submitted
     const formData = new FormData();
@@ -16,8 +13,8 @@ export default function FileUpload(props) {
     //use axios to handle the file
     try {
       const response = await axios({
-        //set as POST method
-        method: "post",
+        //set as DELETE method
+        method: "delete",
         url: "http://localhost:8080",
         data: formData
       });
@@ -36,9 +33,8 @@ export default function FileUpload(props) {
   //require express and express-file upload
   return (
     <div>
-      <FileSearch/>
-    <form onSubmit={handleSubmit}>
-      <input type="file" name="upload" id="audio" onChange={handleFileSelect} />
+    <form onSubmit={handleDelete}>
+      <input type="file"onChange={handleFileSelect} />
       <input type="submit" name="submit"/>
     </form>
     </div>
@@ -48,5 +44,3 @@ export default function FileUpload(props) {
   //need to select file from folder
   //need to export file to AudioPlayer
 }
-
-

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-export default function fld(props){
+export default function FileSearch(props){
     //set the inital state of the name as null
     const [songName, setSongName] = useState(null);
     //this function is linked to the GET request,
@@ -13,7 +13,7 @@ export default function fld(props){
         try{
             const response = await axios({
                 method: "get",
-                url: `http://localhost:8080/Uploadedfiles/${songName}`,
+                url: `http://localhost:8080/Uploadedfiles/:${songName}`,
                 data: formData
             });
             console.log(response)
