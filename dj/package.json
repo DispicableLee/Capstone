@@ -24,7 +24,7 @@
     "zlib": "^1.0.5"
   },
   "scripts": {
-    "start": "CHOKIDAR_USEPOLLING=true react-scripts start",
+    "start": "react-scripts start",
     "build": "babel src -d lib",
     "test": "jest",
     "eject": "react-scripts eject"

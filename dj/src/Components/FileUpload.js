@@ -7,17 +7,20 @@ export default function FileUpload(props) {
   const [selectedFile, setSelectedFile] = useState(null);
   //handle the submitted form once subimtted
   const handleSubmit = async (event) => {
+    console.log("handling")
     //prevent the page from reloading once the form is submitted
     event.preventDefault();
     //create new formData everytime a file is submitted
     const formData = new FormData();
     //insert the file into the formData variable
     formData.append("selectedFile", selectedFile);
+    console.log(selectedFile);
     //use axios to handle the file
     try {
+      console.log("axios")
       const response = await axios({
         //set as POST method
-        method: "post",
+       method: "POST",
         url: "http://localhost:8080",
         data: formData
       });

@@ -13,7 +13,7 @@ export default function App() {
       </header>
       <ul>
         <li>
-          <Link to="/">Hoe</Link>
+          <Link to="/">Home</Link>
         </li>
         <li>
           <Link to="/AudioPlayer">AudioPlayer</Link>
