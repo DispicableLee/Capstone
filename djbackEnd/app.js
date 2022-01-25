@@ -16,15 +16,12 @@ const port = 8080;
 
 
 //initialize JSON middleware
-app.use(express.json);
-app.use(express.urlencoded({extended: false}));
 //set up the upload directory, where the files will be sent
 const uploadDirectory = __dirname + "/Uploadedfiles";
 //require the FileService
 const FileService = require("./FileService");
 //Require the FileRouter
 const FileRouter = require("./FileRouter");
-const { Console } = require("console");
 //initiaize a new FileService and pass in the uploadDirectory as a parameter
 const fileService = new FileService(uploadDirectory);
 //require the FileRouter that the FileService will be used in
@@ -54,7 +51,7 @@ function write(name, data) {
 app.post("/",(req, res)=>{
   console.log("hi")
   console.log(req);
-  write(req.files.selectedFile.name, req.files.selectedFile.data)
+  write(req.files.selectedFile.name, req.files.selectedFile.data);
   res.send("hi");
 })
 //GET Method #2=================================================================================================
@@ -72,7 +69,11 @@ app.get("/Uploadedfiles/:name", (req, res) => {
   //send this to the front end with res.send
   console.log(dataset);
   console.log("hi");
-  res.send(dataset);
+  const buf = Buffer.from(red)
+  let buffed = buf.toString("utf-8");
+  res.send(buffed);
+
+  //res.send(__dirname + "/" + params)
   //red[0][1]
 });
 //DELETE request that removes a specified file from Uploadedfiles

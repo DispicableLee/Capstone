@@ -19,6 +19,7 @@ export default function FileSearch(props){
                 data: formData
             });
             console.log(response)
+            console.log("hi")
         }catch(error){
             console.log(error)
         }

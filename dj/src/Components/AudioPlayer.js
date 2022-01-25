@@ -1,10 +1,13 @@
 import ReactAudioPlayer from "react-audio-player";
+import React from 'react';
 import {useState} from 'react';
 import axios from 'axios';
+import ReactPlayer from 'react-player'
 export default function AudioPlayer(props) {
 //===================================================================================================================
     //set the inital state of the name as null
     const [songName, setSongName] = useState("");
+    const [response, setResponse] = useState("");
     //this function is linked to the GET request,
     const handleRetrieve = async (event) =>{
         //prevent the page from reloading
@@ -14,18 +17,20 @@ export default function AudioPlayer(props) {
         formData.append("songName", songName);
         console.log(songName);
         try{
-            const response = await axios({
+            const res = await axios({
                 method: "get",
                 url: `http://localhost:8080/Uploadedfiles/${songName}`,
                 data: formData
             });
-            console.log("RES",response)
+            console.log("RES",res);
+            setResponse(res.data);
         }catch(error){
             console.log(error)
         }
     };
+    //response[data][1].data
     const handleNameSelect = (event) =>{
-        setSongName(event.currentTarget.value);
+        setSongName(event.target.files[0].name);
     };
 //=================================================================================================================================
     return (
@@ -43,14 +48,19 @@ export default function AudioPlayer(props) {
           image container
           <img />
         </div>
-        {/* AUDIO PLAYER============================================= */}
-        <ReactAudioPlayer 
+        {/* REACT AUDIO PLAYER============================================= */}
+        <ReactAudioPlayer
         controls
-        src={songName}/>
+        src={response}/>
+        {/* REACT PLAYER=============================================================== */}
+        {/* <ReactPlayer
+        controls
+        url={`/Uploadedfiles/${response}`}
+        /> */}
       {/* FORM============================================== */}
           <form onSubmit={handleRetrieve} encType="multipart/form-data">
             <label>Choose a song to play</label>
-            <input type="file"  value={songName} onChange={handleNameSelect}/>
+            <input type="file"  onChange={handleNameSelect}/>
             <input type="submit"/>
           </form>
       </div>
