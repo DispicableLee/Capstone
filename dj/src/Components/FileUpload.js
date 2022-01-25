@@ -14,16 +14,18 @@ export default function FileUpload(props) {
     const formData = new FormData();
     //insert the file into the formData variable
     formData.append("selectedFile", selectedFile);
-    console.log(selectedFile);
+    console.log(formData);
     //use axios to handle the file
     try {
       console.log("axios")
       const response = await axios({
         //set as POST method
-       method: "POST",
+        method: "POST",
         url: "http://localhost:8080",
-        data: formData
+        data: formData,
+        headers: {"Content-Type": "multipart/form-data"}
       });
+      console.log("done")
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -41,8 +43,8 @@ export default function FileUpload(props) {
     <div>
       <FileSearch/>
     <form onSubmit={handleSubmit}>
-      <input type="file" name="upload" id="audio" onChange={handleFileSelect} />
-      <input type="submit" name="submit"/>
+      <input type="file" onChange={handleFileSelect} />
+      <input type="submit" name="Upload File"/>
     </form>
     </div>
   );
