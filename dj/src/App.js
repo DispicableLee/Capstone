@@ -3,7 +3,6 @@ import './App.css';
 import { Routes, Route, Link, useParams, Outlet } from "react-router-dom";
 import AudioPlayer from './Components/AudioPlayer';
 import FileUpload from './Components/FileUpload';
-import Fld from './Components/fld';
 // require/use Express
 // set up body parser
 export default function App() {
@@ -12,10 +11,9 @@ export default function App() {
       <header className="App-header">
           <h1>LemonCord</h1>
       </header>
-      <Fld />
       <ul>
         <li>
-          <Link to="/">Hoe</Link>
+          <Link to="/">Home</Link>
         </li>
         <li>
           <Link to="/AudioPlayer">AudioPlayer</Link>

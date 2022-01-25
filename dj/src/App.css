@@ -10,7 +10,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: rgb(50, 151, 168);
   max-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -23,8 +23,9 @@
 
 .App li {
   list-style-type: none;
-  display: block;
-  font-family: "Monserrat", sans-serif;
+  display: inline-block;
+  font-family: "Neonderthaw", cursive;
+  font-size: 30px;
   padding: 10px;
 }
 
