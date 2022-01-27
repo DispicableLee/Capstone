@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import FileSearch from "./FileSearch";
+import FileDelete from "./FileDelete";
 //================================================================================================
 export default function FileUpload(props) {
   //set the initial state of the file
@@ -43,9 +44,11 @@ export default function FileUpload(props) {
     <div>
       <FileSearch/>
     <form onSubmit={handleSubmit}>
+      <label>Choose File to Upload   </label>
       <input type="file" onChange={handleFileSelect} />
       <input type="submit" name="Upload File"/>
     </form>
+    <FileDelete/>
     </div>
   );
   //need to read file and store it in a folder

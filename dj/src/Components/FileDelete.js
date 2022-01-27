@@ -2,20 +2,22 @@ import { useState } from "react";
 import axios from "axios";
 //================================================================================================
 export default function FileDelete(props) {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState("");
   //handle the submitted form once subimtted
   const handleDelete = async (event) => {
     event.preventDefault();
     //create new formData everytime a file is submitted
     const formData = new FormData();
     //insert the file into the formData variable
-    formData.append("selectedFile", selectedFile);
+    formData.append("selectedFile: ", selectedFile);
     //use axios to handle the file
+    console.log(formData);
     try {
+      console.log("attempting to delete")
       const response = await axios({
         //set as DELETE method
         method: "delete",
-        url: "http://localhost:8080",
+        url: `http://localhost:8080/Uploadedfiles/${selectedFile}`,
         data: formData
       });
       console.log(response);
@@ -24,18 +26,16 @@ export default function FileDelete(props) {
     }
   };
   const handleFileSelect = (event) => {
-    setSelectedFile(event.target.files[0]);
+    setSelectedFile(event.target.files[0].name);
   };
-  //==================================================================================================
 
-  //need to create buttons to activate the file uploader
-  //initialize a form to upload files in
-  //require express and express-file upload
+  //==================================================================================================
   return (
     <div>
-    <form onSubmit={handleDelete}>
-      <input type="file"onChange={handleFileSelect} />
-      <input type="submit" name="submit"/>
+    <form onSubmit={handleDelete} encType="multipart/form-data">
+      <label>Choose File to Delete   </label>
+      <input type="file" onChange={handleFileSelect} />
+      <input type="submit" name="Delete"/>
     </form>
     </div>
   );

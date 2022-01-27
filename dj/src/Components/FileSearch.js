@@ -30,8 +30,8 @@ export default function FileSearch(props){
 //==========================================================================================================================
     return(
         <form onSubmit={handleRetrieve}>
-            <label>List out the songs</label>
-            <input type="text"  value={songName} onChange={handleNameSelect}/>
+            <label>REMOVE THIS BEFORE DEPLOYMENT (this is just to test the get request)</label>
+            <input type="file"  value={songName} onChange={handleNameSelect}/>
             <input type="submit"/>
         </form>
     )

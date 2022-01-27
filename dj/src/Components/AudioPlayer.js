@@ -15,14 +15,16 @@ export default function AudioPlayer(props) {
         //set the formData
         const formData = new FormData();
         formData.append("songName", songName);
-        console.log(songName);
+        console.log("formdata appended");
+        console.log(formData);
         try{
             const res = await axios({
                 method: "get",
                 url: `http://localhost:8080/Uploadedfiles/${songName}`,
                 data: formData
             });
-            console.log("RES",res);
+            console.log("RESPONSE");
+            console.log(res.data)
             setResponse(res.data);
         }catch(error){
             console.log(error)
@@ -35,28 +37,11 @@ export default function AudioPlayer(props) {
 //=================================================================================================================================
     return (
       <div className="music-container">
-        {/* contains audio player */}
-        <div className="music-info">
-          {/*contains music information*/}
-          <h4 id="title"> {/*name of song goes here*/}hi </h4>
-          <div className="progress-container">
-            <div className="progress"></div>
-          </div>
-        </div>
-        {/* IMAGE CONTAINER====================================== */}
-        <div className="img-cntnr">
-          image container
-          <img />
-        </div>
         {/* REACT AUDIO PLAYER============================================= */}
         <ReactAudioPlayer
         controls
+        autoPlay
         src={response}/>
-        {/* REACT PLAYER=============================================================== */}
-        {/* <ReactPlayer
-        controls
-        url={`/Uploadedfiles/${response}`}
-        /> */}
       {/* FORM============================================== */}
           <form onSubmit={handleRetrieve} encType="multipart/form-data">
             <label>Choose a song to play</label>
@@ -67,4 +52,5 @@ export default function AudioPlayer(props) {
       
     );
   }
+
   
