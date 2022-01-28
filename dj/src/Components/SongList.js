@@ -1,43 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from "axios"
 export default function SongList(props){
 //======================================================
 //set the state of the slist as an emptey array
     const [slist, setSlist] = useState([])
-    const handleList = async (event) =>{
-        event.preventDefault();
+   useEffect(async () =>{
+        
         try{
             const response = await axios({
                 method: "get",
-                url:"/Uploadedfiles"
+                url:"http://localhost:8080/Uploadedfiles"
                 // data 
             })
-            setSlist(slist.unshift(response))
-            
+            console.log(response)
+            setSlist(response.data)
+            // console.log(slist);
         }catch(error){
             console.log(error);
         }
-    }      
+   },[])
+          
     
 //======================================================
     return(
-        <div></div>
+        <div>
+            <h1>Song List: </h1>
+            {slist.map(
+                (name, index)=>{
+                    return <div>
+                        <a key={index} href={"http://localhost:8080/Uploadedfiles" + '/' + `${name}`} >{name}</a>
+                        
+                        </div>
+                }
+            )}
+            
+            
+        </div>
     )
     
 }
-
-
-
-// <div class="dropdown">
-      //<button onClick ="song_List()"></button>
-      // <div id="slist"> </div>
-//</div>
-
-  //function song_List()=>{
-      // var s_list = document.getElementById("slist");
-      // axios.get({/* URL goes here*/}, function(data){
-          // data.forEach(function(file){
-            // %slist.append(response)
-          // })
-      // })
- // }

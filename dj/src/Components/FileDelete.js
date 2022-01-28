@@ -2,22 +2,18 @@ import { useState } from "react";
 import axios from "axios";
 //================================================================================================
 export default function FileDelete(props) {
-  const [selectedFile, setSelectedFile] = useState("");
+  const [fileName, setFileName] = useState(null);
   //handle the submitted form once subimtted
   const handleDelete = async (event) => {
     event.preventDefault();
-    //create new formData everytime a file is submitted
-    const formData = new FormData();
-    //insert the file into the formData variable
-    formData.append("selectedFile: ", selectedFile);
-    //use axios to handle the file
-    console.log(formData);
+    const formData = new FormData;
+    formData.append("fileName", fileName);
     try {
       console.log("attempting to delete")
+      console.log(fileName.name);
       const response = await axios({
-        //set as DELETE method
         method: "delete",
-        url: `http://localhost:8080/Uploadedfiles/${selectedFile}`,
+        url: `http://localhost:8080/Uploadedfiles/${fileName.name}`,
         data: formData
       });
       console.log(response);
@@ -26,7 +22,7 @@ export default function FileDelete(props) {
     }
   };
   const handleFileSelect = (event) => {
-    setSelectedFile(event.target.files[0].name);
+    setFileName(event.target.files[0]);
   };
 
   //==================================================================================================
@@ -39,8 +35,9 @@ export default function FileDelete(props) {
     </form>
     </div>
   );
-  //need to read file and store it in a folder
-  // Dropbox project
-  //need to select file from folder
-  //need to export file to AudioPlayer
 }
+
+
+//passes in the file NAME as the endpoint, which corresponds to the delete method in the backend.
+//the backend searches for the file with the same name
+//the delete method deletes the file.
