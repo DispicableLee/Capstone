@@ -1,5 +1,5 @@
 import ReactAudioPlayer from "react-audio-player";
-import React, { useEffect } from 'react';
+import React from 'react';
 import {useState} from 'react';
 import axios from 'axios';
 export default function AudioPlayer(props) {
@@ -49,7 +49,6 @@ export default function AudioPlayer(props) {
           <form onSubmit={handleRetrieve} encType="multipart/form-data">
             <label>Choose a song to play</label>
             <input type="file"  onChange={handleNameSelect}/>
-            <input type="submit"/>
           </form>
       </div>
       
