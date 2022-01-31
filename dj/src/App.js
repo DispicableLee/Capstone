@@ -24,6 +24,7 @@ export default function App() {
         </li>
       </ul>
       <SongList/>
+
       <Routes>
           <Route path="/AudioPlayer" element={<AudioPlayer/>}/>
           <Route path="/FileUpload" element={<FileUpload/>}/>
