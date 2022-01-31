@@ -9,15 +9,17 @@ const fs = require("fs");
 const app = express();
 //use the file uploader in the application
 app.use(expressFileUpload());
+//have the app use express.static
+//set up the upload directory, where the files will be sent
+const uploadDirectory = __dirname + "/Uploadedfiles";
+app.use(express.static(uploadDirectory))
 //use cors in the application
 app.use(cors());
 //set the port that the localhost will be using
 const port = 8080;
 
-
 //initialize JSON middleware
-//set up the upload directory, where the files will be sent
-const uploadDirectory = __dirname + "/Uploadedfiles";
+
 //require the FileService
 const FileService = require("./FileService");
 //Require the FileRouter
@@ -45,6 +47,9 @@ function read(name) {
 function write(name, data) {
   fs.writeFileSync(uploadDirectory + "/" + name, data);
 } 
+function remove(name){
+  fs.unlinkSync(name)
+}
 //POST Method#1================================================================================================
 //inserts a file into uploadDirectory
 //For FileUpload.js
@@ -56,9 +61,9 @@ app.post("/",(req, res)=>{
 })
 //GET Method #2=================================================================================================
 //Searches uploadDirectory for the specified song
-//FOR FileSearch.js  
+//FOR FileSearch & AudioPlayer
 app.get("/Uploadedfiles/:name", (req, res) => {
-  console.log(req);
+  console.log("For Audio Player");
   console.log("searching");
   const params = req.params.name;
   console.log(params);
@@ -69,18 +74,32 @@ app.get("/Uploadedfiles/:name", (req, res) => {
   //send this to the front end with res.send
   console.log(dataset);
   console.log("hi");
+  //create a buffer from the data
   const buf = Buffer.from(red)
+  //convert the buffer to a string
   let buffed = buf.toString("utf-8");
-  res.send(buffed);
 
-  //res.send(__dirname + "/" + params)
-  //red[0][1]
+  let src = uploadDirectory + '/' + params
+  console.log(src);
+
+  //send the stringed buffer as the response
+  res.sendFile(uploadDirectory + '/' + params)
 });
-//DELETE request that removes a specified file from Uploadedfiles
-app.delete("Uploadedfiles/:name", (req,res) =>{
+
+//GET Method #3==================================================================================================
+//For SongList.js
+app.get("/Uploadedfiles", (req, res)=>{
+  console.log("Song List");
   console.log(req);
+  res.send( fs.readdirSync(__dirname + '/Uploadedfiles'))
+})
+//DELETE request that removes a specified file from Uploadedfiles
+app.delete("/Uploadedfiles/:name", (req,res) =>{  //need to fix endpoint
+  console.log(req)
   const params = req.params.name
-  //remove the file
+  console.log("hi")
+  fs.unlinkSync(uploadDirectory + '/' + params)
+  res.send("done");
 })
 
 app.listen(port, () => {
