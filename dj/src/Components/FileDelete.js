@@ -2,20 +2,18 @@ import { useState } from "react";
 import axios from "axios";
 //================================================================================================
 export default function FileDelete(props) {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [fileName, setFileName] = useState(null);
   //handle the submitted form once subimtted
   const handleDelete = async (event) => {
     event.preventDefault();
-    //create new formData everytime a file is submitted
-    const formData = new FormData();
-    //insert the file into the formData variable
-    formData.append("selectedFile", selectedFile);
-    //use axios to handle the file
+    const formData = new FormData;
+    formData.append("fileName", fileName);
     try {
+      console.log("attempting to delete")
+      console.log(fileName.name);
       const response = await axios({
-        //set as DELETE method
         method: "delete",
-        url: "http://localhost:8080",
+        url: `http://localhost:8080/Uploadedfiles/${fileName.name}`,
         data: formData
       });
       console.log(response);
@@ -24,23 +22,22 @@ export default function FileDelete(props) {
     }
   };
   const handleFileSelect = (event) => {
-    setSelectedFile(event.target.files[0]);
+    setFileName(event.target.files[0]);
   };
-  //==================================================================================================
 
-  //need to create buttons to activate the file uploader
-  //initialize a form to upload files in
-  //require express and express-file upload
+  //==================================================================================================
   return (
     <div>
-    <form onSubmit={handleDelete}>
-      <input type="file"onChange={handleFileSelect} />
-      <input type="submit" name="submit"/>
+    <form onSubmit={handleDelete} encType="multipart/form-data">
+      <label>Choose File to Delete   </label>
+      <input type="file" onChange={handleFileSelect} />
+      <input type="submit" name="Delete"/>
     </form>
     </div>
   );
-  //need to read file and store it in a folder
-  // Dropbox project
-  //need to select file from folder
-  //need to export file to AudioPlayer
 }
+
+
+//passes in the file NAME as the endpoint, which corresponds to the delete method in the backend.
+//the backend searches for the file with the same name
+//the delete method deletes the file.
