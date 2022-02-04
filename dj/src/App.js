@@ -1,9 +1,10 @@
 
 import './App.css';
-import { Routes, Route, Link, useParams, Outlet } from "react-router-dom";
+import { Routes, Route, Link} from "react-router-dom";
 import AudioPlayer from './Components/AudioPlayer';
 import FileUpload from './Components/FileUpload';
 import SongList from './Components/SongList';
+import DP from './Components/DaudioPlayer';
 // require/use Express
 // set up body parser
 export default function App() {
@@ -23,12 +24,11 @@ export default function App() {
           <Link to="/FileUpload">FileUpload</Link>
         </li>
       </ul>
-      <SongList/>
-
       <Routes>
           <Route path="/AudioPlayer" element={<AudioPlayer/>}/>
           <Route path="/FileUpload" element={<FileUpload/>}/>
       </Routes>
+      <DP/>
     </div>
   );
 }

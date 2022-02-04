@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import FileSearch from "./FileSearch";
 import FileDelete from "./FileDelete";
-//================================================================================================
+import SongList from "./SongList";
 export default function FileUpload(props) {
+//================================================================================================
   //set the initial state of the file
   const [selectedFile, setSelectedFile] = useState(null);
   //handle the submitted form once subimtted
@@ -31,30 +31,25 @@ export default function FileUpload(props) {
     } catch (error) {
       console.log(error);
     }
+    
+//=====================================================================================================
   };
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
   };
-  //==================================================================================================
+//==================================================================================================
 
-  //need to create buttons to activate the file uploader
-  //initialize a form to upload files in
-  //require express and express-file upload
   return (
     <div>
-      <FileSearch/>
     <form onSubmit={handleSubmit}>
       <label>Choose File to Upload   </label>
-      <input type="file" onChange={handleFileSelect} />
+      <input type="file" onClick={<SongList/>} onChange={handleFileSelect} />
       <input type="submit" name="Upload File"/>
     </form>
     <FileDelete/>
     </div>
   );
-  //need to read file and store it in a folder
-  // Dropbox project
-  //need to select file from folder
-  //need to export file to AudioPlayer
+
 }
 
 

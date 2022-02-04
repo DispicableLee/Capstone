@@ -1,11 +1,12 @@
 import { useState, useEffect} from 'react';
 import axios from "axios";
 import Dropdown from "react-dropdown";
+import 'react-dropdown/style.css'
 export default function SongList(props){
 //======================================================
 //set the state of the slist as an emptey array
     const [slist, setSlist] = useState([])
-
+    const [songName, setSongName] = useState("")
     useEffect(async () =>{
         try{
             const response = await axios({
@@ -20,32 +21,42 @@ export default function SongList(props){
             console.log(error);
         }
    },[]);
-          
-   
-    
+   const clicked = (event) =>{
+       event.preventDefault();
+       console.log("clicked");
+       setSongName()
+   }
 //======================================================
     return(
         <div>
             <h1>Song List: </h1>
             {/*DropDown Div*/}
-            <div name="dropdown">
                 <Dropdown placeholder="select a file" options={slist.map(
+                (name, index)=>{
+                    return <div>
+                        <a 
+                        key={index} 
+                        href={"http://localhost:8080/Uploadedfiles" + '/' + `${name}`}
+                        onClick={clicked}>
+                            {name}
+                        </a> 
+                        </div>
+                }
+            )}/>
+
+
+        </div>
+    )
+}
+//=============================================================================================================================
+//consider using "react-bootstrap"'s dropdown menu
+//"yarn add react-bootstrap"
+
+
+{/* {slist.map(
                 (name, index)=>{
                     return <div>
                         <a key={index} href={"http://localhost:8080/Uploadedfiles" + '/' + `${name}`} >{name}</a> 
                         </div>
                 }
-            )}/>
-            </div>
-
-            {/* create button that activates "drop" onClick() */}
-
-        </div>
-    )
-}
-
-
-//=============================================================================================================================
-
-
-
+            )}*/}
