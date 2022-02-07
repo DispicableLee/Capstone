@@ -1,58 +1,65 @@
-import ReactAudioPlayer from "react-audio-player";
-import React from 'react';
-import {useState, useEffect} from 'react';
-import SongList from "./SongList";
-import axios from 'axios';
-export default function AudioPlayer(props) {
-//===================================================================================================================
-    //set the inital state of the name as null
-    const [songName, setSongName] = useState("");
-    //this function is linked to the GET request,
-    const handleRetrieve = async (event) =>{
-        //prevent the page from reloading
-        event.preventDefault();
-        //set the formData
-        const formData = new FormData();
-        formData.append("songName", songName);
-        console.log("formdata appended");
-        try{
-            const res = await axios({
-                method: "get",
-                url: `http://localhost:8080/Uploadedfiles/${songName}`,
-                data: formData
-            });
-            console.log("RESPONSE");
-            console.log(res.data)
-            console.log(typeof res.data)
-        }catch(error){
-            console.log(error)
-        }
-    };
-    const handleNameSelect = (event) =>{
-        setSongName(event.target.files[0].name);
-    };
-//=================================================================================================================================
-    return (
-    // ReactAudioPlayer
-      <div className="music-container">
-        <ReactAudioPlayer
-        controls={true}
-        src={`http://localhost:8080/Uploadedfiles/${songName}`}/>
-      {/* FORM============================================== */}
-          <form onSubmit={handleRetrieve} encType="multipart/form-data">
-            <label>Choose a song to play</label>
-            <input type="file"  onChange={handleNameSelect}/>
-          </form>
-        <SongList/>
-
-
-
-
-
-          
-      </div>
-      
-    );
-  }
-
-  
+import { useState, useEffect} from 'react';
+import axios from "axios";
+import Dropdown from "react-dropdown";
+import ReactAudioPlayer from 'react-audio-player';
+import 'react-dropdown/style.css'
+export default function SongList(props){
+//======================================================
+//set the state of the slist as an emptey array
+const [slist, setSlist] = useState([])
+//initializes emptey array that files will be passed into
+const [songName, setSongName] = useState("");
+//initializes songName that will be used as src
+useEffect(async () =>{
+    plsWork();
+},[]);
+//sets up the function that passes the file into slist from the backend
+const plsWork = async (event) =>{
+try{
+    const response = await axios({
+        method: "get",
+        url:`http://localhost:8080/Uploadedfiles`
+        // data 
+    })
+    setSlist(response.data)
+}catch(error){
+    console.log(error);
+}
+}
+//sets the songName as the file which is clicked
+const nameHandler = (event) =>{
+   event.preventDefault();
+   // console.log(typeof songName);
+   // console.log(event.target)
+   // console.log(event.target.getAttribute('data-info'))
+   setSongName(event.target.getAttribute('data-info'));
+} 
+   //====================================
+    return(
+        <div>
+            <div className="music-container">
+                <ReactAudioPlayer
+                controls={true}
+                src={`${songName}`}/>
+            </div>
+            <h1>Song List: </h1>
+            {/*DropDown Div*/}
+                <Dropdown placeholder="select a file" options={slist.map(
+                (name, index)=>{
+                    return <div>
+                        <a
+                        key={index}
+                        //sets up what exactly will be set as the songName
+                        data-info={`http://localhost:8080/Uploadedfiles/${name}`}
+                        // value={`http://localhost:8080/Uploadedfiles/${name}`}
+                        //sets the function that will be fired once the Dropdown.Item is clicked
+                        onClick={nameHandler}>
+                            {name}
+                        </a> 
+                        </div>
+                }
+            )}/>
+        </div>
+    )
+}
+//=============================================================================================================================
