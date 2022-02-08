@@ -18,7 +18,12 @@ app.use(cors());
 //set the port that the localhost will be using
 const port = 8080;
 
-//initialize JSON middleware
+//initialize User Authentication Middleware
+
+
+
+
+
 
 //require the FileService
 const FileService = require("./FileService");
