@@ -5,14 +5,15 @@ import { useGoogleLogin } from 'react-google-login';
 import { refreshTokenSetup } from '../utils/refreshToken';
 
 const clientId =
-  '707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com';
+"10857523996-btn3adka6fe95svdn7s47t73jhtt5egi.apps.googleusercontent.com";
 
 function LoginHooks() {
   const onSuccess = (res) => {
-    console.log('Login Success: currentUser:', res.profileObj);
+    console.log('Login Success: currentUser:', res.profileObj.googleId);
     alert(
       `Logged in successfully welcome ${res.profileObj.name} 😍. \n See console for full profile object.`
     );
+    localStorage.setItem('authToken', res.profileObj.googleId);
     refreshTokenSetup(res);
   };
 

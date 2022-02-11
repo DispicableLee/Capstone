@@ -24,6 +24,7 @@
     "crypto": "^1.0.1",
     "kill-port": "^1.6.1",
     "net": "^1.0.2",
+    "passport-oauth2-refresh": "^2.1.0",
     "querystring": "^0.2.1",
     "react": "^17.0.2",
     "react-audio-player": "^0.17.0",
