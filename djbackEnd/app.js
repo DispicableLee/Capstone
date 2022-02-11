@@ -18,12 +18,39 @@ app.use(cors());
 //set the port that the localhost will be using
 const port = 8080;
 
-//initialize JSON middleware
+//initialize Passport middleware=================================================================================
+// const passport = require("passport");
+// const GoogleStrategy = require("passport-google-oauth20").Strategy;
+// //use google jwt
+// passport.serializeUser(function(user, done){
+//   done(null, user)
+// });
+
+// passport.deserializeUser(function(user, done){
+//   done(null, user)
+// });
+
+// passport.use(new GoogleStrategy({
+//   clientID:, 
+//   clientSecret:,,
+//   callbackURL:,
+//   passReqToCallback: true,
+// },
+//   function(request, accessToken, refreshToken, profile, done{
+//     return done(null, profile);
+//   })
+// ));
+//================================================================================================================
+
+
+
+
 
 //require the FileService
 const FileService = require("./FileService");
 //Require the FileRouter
 const FileRouter = require("./FileRouter");
+const { profile } = require("console");
 //initiaize a new FileService and pass in the uploadDirectory as a parameter
 const fileService = new FileService(uploadDirectory);
 //require the FileRouter that the FileService will be used in
